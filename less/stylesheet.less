@@ -1,0 +1,145 @@
+
+/* grayscale colors */
+@bg: #404040;
+@content_bg: #1d1d1d;
+@font: #ebebeb;
+
+/* accent colors */
+@accent1: #d03272; // pink
+@accent2: #6cd032; // green
+@accent3: #009bcf; // blue
+
+@color: @accent3;
+
+/* dimmensions */
+@main_header_height: 80px;
+@section_spacing: 32px;
+
+@font-face { 
+  font-family: "After Disaster"; 
+  src: url('../media/After_Disaster.otf'); 
+} 
+
+/* clearfix **************************************************/
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+ 
+.clearfix {
+  display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+  display: block;
+}
+ 
+* html .clearfix {
+  height: 1%;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* main ******************************************************/
+
+body {
+  background-color: @bg;
+  color: @font;
+}
+
+header.main {
+  height: @main_header_height;
+  margin-bottom: @section_spacing;
+}
+
+.link_behaviour (@color: @accent3) {
+  &:link, &:visited {
+    color: @color;
+  }
+  &:hover {
+    color: lighten(@color, 10%);
+  }
+  &:active {
+    color: lighten(@color, 20%);
+  }
+}
+
+a {
+  .link_behaviour;
+}
+
+nav {
+  padding-left: 407px;
+  font-family: "After Disaster";
+  font-size: 28px;
+  margin-bottom: @section_spacing;
+  height: 24px;
+  ul {
+    list-style: none;
+    li {
+      float: left;
+      a {
+        display: block;
+        padding: 10px 20px 4px 20px;
+        margin-left: 20px;
+        background-color: @content_bg;
+        text-decoration: none
+      }
+      .pink {
+        .link_behaviour(@accent1);
+      }
+      .green {
+        .link_behaviour(@accent2);
+      }
+    }
+  }
+}
+
+footer {
+  float: right;
+}
+
+section {
+  font-family: sans-serif;
+  padding: 30px;
+  font-size: 108%;
+  margin-bottom: @section_spacing;
+}
+
+#container {
+  width: 960px;
+  margin: 0 auto;
+}
+
+#social-media, #avatar {
+  float: right;
+}
+
+#logo, section, nav {
+  background-color: @content_bg;
+}
+
+#logo {
+  font-family: "After Disaster";
+  font-size: 74px;
+  line-height: 105px;
+  display: inline-block;
+  padding: 0 10px 0 10px;
+  height: @main_header_height;
+}
+
+.pink {
+  color: @accent1;
+}
+
+.green {
+  color: @accent2;
+}
