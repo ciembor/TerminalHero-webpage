@@ -53,6 +53,7 @@ html[xmlns] .clearfix {
 body {
   background-color: @bg;
   color: @font;
+  font-family: sans-serif;
 }
 
 header.main {
@@ -77,7 +78,7 @@ a {
 }
 
 nav {
-  padding-left: 407px;
+  padding-left: 370px;
   font-family: "After Disaster";
   font-size: 28px;
   margin-bottom: @section_spacing;
@@ -88,7 +89,7 @@ nav {
       float: left;
       a {
         display: block;
-        padding: 10px 20px 4px 20px;
+        padding: 10px 20px 2px 20px;
         margin-left: 20px;
         background-color: @content_bg;
         text-decoration: none
@@ -108,10 +109,45 @@ footer {
 }
 
 section {
-  font-family: sans-serif;
   padding: 30px;
-  font-size: 108%;
   margin-bottom: @section_spacing;
+  h2 {
+    font-size: 34px;
+  }
+  h3 {
+    font-size: 28px;
+    margin: 1em 0 0.3em 0;
+  }
+  p, ul {
+    font-size: 21px;
+    line-height: 2em;
+  }
+  ul {
+    margin: 0.3em 0 0.3em 1em;
+  }
+  strong {
+    color: @accent1;
+  }
+  pre, code {
+    font-family: Inconsolata;
+    font-size: 21px;
+  }
+}
+
+footer {
+  font-family: "After Disaster"; 
+  margin-bottom: @section_spacing;
+  color: @content_bg;
+  font-size: 21px;
+  a {
+    text-decoration: none;
+    &:link, &:visited {
+      color: @content_bg;
+    }
+    &:hover, &:active {
+      color: darken(@content_bg, 10);
+    }
+  }
 }
 
 #container {
@@ -123,17 +159,54 @@ section {
   float: right;
 }
 
+#avatar {
+  height: @main_header_height;
+  width: @main_header_height;
+}
+
 #logo, section, nav {
   background-color: @content_bg;
 }
 
+#logo_link {
+  &:link, &:visited, &:hover, &:active {
+    color: @font;
+  }
+}
+
 #logo {
+  // .T {
+    // margin-right: -6px;
+  // }
   font-family: "After Disaster";
   font-size: 74px;
   line-height: 105px;
+  font-weight: normal;
   display: inline-block;
   padding: 0 10px 0 10px;
   height: @main_header_height;
+}
+
+#movie {
+  width:960px; 
+  height:540px;
+  margin-bottom: @section_spacing;
+  background-color: #000;
+  iframe {
+    width: inherit;
+    height: inherit;
+  }
+}
+
+#github {
+  position: absolute;
+  z-index: 999;
+  margin-left: 781px;
+  margin-top: -30px;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1.0;
+  }
 }
 
 .pink {
@@ -142,4 +215,29 @@ section {
 
 .green {
   color: @accent2;
+}
+
+.twitter-share-button{
+  margin-top: 9px;
+}
+
+.twitter-follow-button {
+  margin-top: 10px;
+}
+
+#social-media {
+  width: 0px;
+}
+
+.fb-like, .twitter-share-button, .twitter-follow-button {
+  overflow: hidden;
+  height: 20px;
+  display: block;
+  float: right;
+  margin-right: 10px;
+}
+
+.fb-like {
+  width: 49px;
+  height: 21px;
 }

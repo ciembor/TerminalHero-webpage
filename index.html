@@ -4,11 +4,25 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Terminal Hero</title>
+    
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <link rel="stylesheet/less" type="text/css" href="./less/stylesheet.less" />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.3.0/less-1.3.0.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="./js/shCore.js"></script>
+    <script type="text/javascript" src="./js/shBrushPerl.js"></script>
+    <link type="text/css" rel="stylesheet" href="./css/shCoreDefault.css"/>
+    <link type="text/css" rel="stylesheet" href="./css/shThemeRDark.css"/>
+
+    <script type="text/javascript" src="./js/vimeo_blink_fix.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+
   </head>
   
   <body>
+    
+    <div id="fb-root"></div>
+    
     <div id="container">
       
       <nav class="clearfix">
@@ -20,15 +34,25 @@
       </nav>
       
       <header class="main">
-        <h1 id="logo"><span class="pink">T</span>erminal<span class="green">H</span>ero</h1>
-        <div id="social-media"></div>
+        <a id="logo_link" href="#"><h1 id="logo"><span class="pink">T</span>erminal<span class="green">H</span>ero</h1></a>
         <a href="http://ciemborowicz.pl" rel="author">
           <img id="avatar" src="https://secure.gravatar.com/avatar/3478efd1de1ba3c35784d870b77fae89?s=80.png" alt="avatar" />
         </a>
+        <div id="social-media">
+          <div id="fb" class="fb-like" data-send="false" data-layout="button_count" data-width="0" colorscheme="dark" data-show-faces="true"></div>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-count="none"  data-via="ciembor">Tweet</a>
+          <a href="https://twitter.com/ciembor" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow</a>
+        </div>
       </header>
       
-      <section id="Readme">
+      <div id="movie">
+        <iframe src="http://player.vimeo.com/video/28773380?title=0&amp;byline=0&amp;portrait=0&amp;color=009bcf" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      </div>
+      
+      <section id="readme">
         <h2>Readme</h2>
+        
+        <h3>Dependencies</h3>
         <p>This game is written in Perl language, so it depends on <strong>Perl interpreter</strong>. It also needs some extra <strong>Perl modules</strong>:</p>
         <ul>
           <li><strong>POE</strong></li>
@@ -37,14 +61,424 @@
           <li><strong>Term::TermKey</strong></li>
         </ul>
         <p>If you don't know how to install Perl modules, look at <a href="http://www.cpan.org/modules/INSTALL.html">How to install CPAN modules</a>. If you have problems with installation of <strong>Term::TermKey</strong>, make sure that <strong>libtermkey</strong> is available in your operating system. If not - <a href="http://stackoverflow.com/questions/8287071/installing-termtermkey-returns-error">Installing Term::TermKey returns error</a> should help you.</p>
+        
+        <h3>Usage</h3>
+        <pre>terminalhero.perl [options]
+
+Options:
+-h, --help         display this help
+
+Shortcuts:
+Ctrl+D or Esc        exit
+
+Rules:
+Press keys with letters which are in the green area.
+Your score will increase if you do it well and decrease 
+if you press wrong key. You can also lose health points 
+and lifes if the letters turns red. 
+
+Levels:
+You will reach new levels every 64 points.
+Each level is a new line, so it is going harder.</pre>
       </section>
       
-      <section id="Download">
+      <section id="download">
         <h2>Download</h2>
       </section>
       
       <section id="code">
-        <h2>Code</h2>
+        <!-- github button -->
+          <a id="github" href="https://github.com/ciembor/TerminalHero">
+            <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="GitHub" />
+          </a>
+        <!-- end -->
+        <h2>Don't even ask...</h2>
+        <pre class="brush: perl">
+#!/usr/bin/perl
+
+BEGIN {
+  
+  $FRAMERATE = 0.08;
+  
+  # help
+  my $h = &quot;\nTerminal Hero\n&quot;
+        . &quot;Linux society's response to Microsoft's Guitar Hero. :)\n\n&quot;
+        . &quot;Usage: terminalhero.perl [options]\n\n&quot;
+        . &quot;Options:\n&quot;
+        . &quot;-e, --easy\t\t turn on easy mode\n&quot;
+        . &quot;-h, --help\t\t display this help\n\n&quot;
+        . &quot;Shortcuts:\n&quot;
+        . &quot;Ctrl+D or Esc\t\t exit\n\n&quot;
+        . &quot;Rules:\n&quot;
+        . &quot;Press keys with letters which are in the green area.\n&quot;
+        . &quot;Your score will increase if you do it well and decrease \n&quot;
+        . &quot;if you press wrong key. You can also lose health points \n&quot;
+        . &quot;and lifes if letters turns red. \n\n&quot;
+        . &quot;Levels:\n&quot;
+        . &quot;You will reach new levels every 64 points.\n&quot;
+        . &quot;Each level is a new line, so it is going harder.\n\n&quot;
+        . &quot;Now go and play! :)\n\n&quot;;
+  
+  # take arguments
+  if ($#ARGV &gt;= 0) {
+    
+    foreach (@ARGV) {
+      if ($_ ne &quot;-h&quot; 
+          and $_ ne &quot;--help&quot; 
+          and $_ ne &quot;-e&quot; 
+          and $_ ne &quot;--easy&quot;) {
+        print &quot;Unknown argument &quot; . $_ . &quot;.\n&quot;;
+      }
+    }
+    
+    if ($ARGV[0] ne &quot;-e&quot; and $ARGV[0] ne &quot;--easy&quot;) {
+      print($h);
+      exit;
+    }
+    else {
+      $FRAMERATE = 0.12;
+    }
+  }
+  
+  # define Perl modules
+  my @modules = (
+    &quot;strict&quot;, 
+    &quot;POSIX&quot;, 
+    &quot;IO::Handle&quot;, 
+    &quot;Term::ReadKey&quot;, 
+    &quot;Term::TermKey&quot;, 
+    &quot;POE&quot;, 
+    &quot;POE::Wheel::TermKey&quot;,
+    &quot;Time::HiRes&quot;
+  );
+  
+  # load Perl modules
+  foreach (@modules) {
+    eval &quot;use &quot; . $_ . &quot;;&quot;;
+    die &quot;\nUnable to load &quot; . $_
+        . &quot; Perl module. Please, install it using cpan.\n\nError details:\n$@\n&quot; if $@;
+  } 
+  
+}
+
+########################################################################
+
+# terminal features (calling tput is slow... don't use it in a loop)
+my %esc = (
+  &quot;hide_cursor&quot; =&gt; `tput civis`,
+  &quot;show_cursor&quot; =&gt; `tput cnorm`,
+  &quot;clear_scr&quot; =&gt; `tput ed`,
+  &quot;font_white&quot; =&gt; `tput setf 7`,
+  &quot;font_green&quot; =&gt; `tput setf 2`,
+  &quot;font_red&quot; =&gt; `tput setf 4`,
+  &quot;font_black&quot; =&gt; `tput setf 0`,
+  &quot;reset&quot; =&gt; `tput sgr0`,
+  &quot;bg_green&quot; =&gt; `tput setb 2`,
+  &quot;bg_black&quot; =&gt; `tput setb 0`,
+  &quot;bg_white&quot; =&gt; `tput setb 7`,
+  &quot;bold&quot; =&gt; `tput bold`,
+  &quot;line_up&quot; =&gt; `tput cuu1`
+);
+
+# game levels
+my @levels = (
+  &quot;n00b&quot;, 
+  &quot;user&quot;, 
+  &quot;root&quot;, 
+  &quot;geek&quot;, 
+  &quot;hacker&quot;, 
+  &quot;God&quot;, 
+  &quot;cheater&quot;
+);
+  
+# lines with letters to shoot
+my @lines = ();
+my @letters = ('a'..'z');
+
+my $HEALTH = 32;
+my $NEXT_LEVEL_POINTS = 64;
+my $LIFES = 4;
+
+# we need a timestamp, the game should be smooth
+my $timestamp = 0;
+
+# state of the game
+my %game_stat = (
+  &quot;lifes&quot; =&gt; $LIFES,
+  &quot;health&quot; =&gt; $HEALTH,
+  &quot;level&quot; =&gt; 0,
+  &quot;score&quot; =&gt; 0
+);
+
+# terminal width
+my ($width) = GetTerminalSize();
+
+# range of hit area
+my %hit_range = (
+  &quot;start&quot; =&gt; floor(($width) / 4) - 5,
+  &quot;end&quot; =&gt; floor(($width) / 4) + 5 
+);
+
+# states of letters with their colors
+my %sign_states = (
+  &quot;normal&quot; =&gt; $esc{&quot;font_white&quot;},
+  &quot;shooted&quot; =&gt; $esc{&quot;font_green&quot;},
+  &quot;missed&quot; =&gt; $esc{&quot;font_red&quot;}
+);
+
+########################################################################
+
+POE::Session-&gt;create(
+  inline_states =&gt; {
+     
+    _start =&gt; sub {
+         
+      STDOUT-&gt;autoflush(1);
+      # hide cursor
+      print($esc{&quot;hide_cursor&quot;});
+      
+      $_[KERNEL]-&gt;yield(&quot;next_life&quot;);
+      
+      $_[HEAP]{termkey} = POE::Wheel::TermKey-&gt;new(
+        InputEvent =&gt; 'keypressed',
+      );
+      
+    },
+
+    # user pressed a key, he want to hit a letter ######################
+    keypressed =&gt; sub {
+      my $key     = $_[ARG0];
+      my $termkey = $_[HEAP]{termkey};
+
+      if (('&lt;C-d&gt;' eq $termkey-&gt;format_key($key, FORMAT_VIM))
+           or ('&lt;Escape&gt;' eq $termkey-&gt;format_key($key, FORMAT_VIM))) {
+        print($esc{&quot;reset&quot;});
+        # show cursor
+        print($esc{&quot;show_cursor&quot;});
+        # clear screen
+        print($esc{&quot;clear_scr&quot;});
+        exit;
+        
+      } 
+
+      # check if he hit a letter in the green area
+      my $test = 0;
+      for (my $j=0; $j &lt;= $game_stat{&quot;level&quot;}; $j++) {
+        for (my $i=$hit_range{&quot;start&quot;}; $i&lt;$hit_range{&quot;end&quot;}; $i++) {
+          if ( $lines[$j][$i]{&quot;character&quot;} 
+               eq $termkey-&gt;format_key($key, FORMAT_VIM) ) {
+            if (&quot;normal&quot; eq $lines[$j][$i]{&quot;state&quot;}) {
+              $game_stat{&quot;score&quot;}++;
+            }
+            $lines[$j][$i]{&quot;state&quot;} = &quot;shooted&quot;;
+            $test = 1;
+          }
+        }
+      }
+      
+      if ($test == 0
+          and $game_stat{&quot;score&quot;} 
+               &gt; $NEXT_LEVEL_POINTS * ($game_stat{&quot;level&quot;})) {
+        $game_stat{&quot;score&quot;}--;
+      }
+ 
+      # gotta exit somehow
+      delete $_[HEAP]{termkey} if $key-&gt;type_is_unicode and
+                                   $key-&gt;utf8 eq &quot;C&quot; and
+                                   $key-&gt;modifiers &amp; KEYMOD_CTRL;
+      },
+    
+    # game over, clear the screen and write a message ##################
+    game_over =&gt; sub {
+      print($esc{&quot;reset&quot;});
+      # show cursor
+      print($esc{&quot;show_cursor&quot;});
+      # clear screen
+      print($esc{&quot;clear_scr&quot;});
+      print(&quot;\nGame over! You are a &quot;
+            . @levels[$game_stat{&quot;level&quot;}] . &quot;. ;)\n\n&quot;);
+      exit(0);
+    },
+    
+    # win, clear the screen and write a message ########################
+    win =&gt; sub {
+      print($esc{&quot;reset&quot;});
+      # show cursor
+      print($esc{&quot;show_cursor&quot;});
+      # clear screen
+      print($esc{&quot;clear_scr&quot;});
+      print(&quot;\nYou win! Neo, you must be... the choosen one. O_O\n\n&quot;);
+      exit(0);
+    },
+    
+    # let's start a new level ##########################################
+    next_level =&gt; sub {
+      if ($game_stat{&quot;level&quot;} &lt; scalar(@levels)) {
+        $game_stat{&quot;health&quot;} = $HEALTH;
+        $_[KERNEL]-&gt;yield(&quot;next_life&quot;);
+      }
+      else {
+        $_[KERNEL]-&gt;yield(&quot;win&quot;);
+      }
+    },
+    
+    # let's start a new life, with new letters #########################
+    next_life =&gt; sub {
+      if ($game_stat{&quot;lifes&quot;} &lt; 1) {
+        $_[KERNEL]-&gt;yield(&quot;game_over&quot;);
+      }
+      else {
+        $game_stat{&quot;health&quot;} = $HEALTH;
+        # prepare an array with empty lines
+        @lines = ();
+        for (my $j=0; $j &lt;= $game_stat{&quot;level&quot;}; $j++) {
+          for (my $i=0; $i&lt;$width; $i++) {
+            my %sign = (
+              &quot;character&quot; =&gt; &quot; &quot;,
+              &quot;state&quot; =&gt; &quot;empty&quot;
+            );
+            push @{ $lines[$j] }, \%sign;
+          }
+        }
+        $_[KERNEL]-&gt;yield(&quot;play&quot;);
+      }
+    },
+    
+    # this is the main loop (recursion) ################################
+    play =&gt; sub {
+      # frame rate should be stable, this may helps
+      $timestamp = [ Time::HiRes::gettimeofday( ) ];
+      
+      # save cursor position
+      print(`tput sc`);
+      
+      my $output = $esc{&quot;bg_white&quot;};
+         $output .= $esc{&quot;font_black&quot;};
+      
+      # prepare bar with the game's state
+      my $bar = &quot;    whoami: &quot; . @levels[$game_stat{&quot;level&quot;}]
+                . &quot;    |    &quot;
+                . &quot;lifes: &quot; . $game_stat{&quot;lifes&quot;} 
+                . &quot;    |    &quot;
+                . &quot;health: &quot; . $game_stat{&quot;health&quot;} 
+                . &quot;    |    &quot;
+                . &quot;score: &quot; . $game_stat{&quot;score&quot;};
+      
+      if (length($bar)&lt;=$width) {
+        # print rest of a bar
+        for (my $i=length($bar); $i&lt;$width; $i++) {
+          $bar .= &quot; &quot;;
+        }
+      }
+      else {
+        # cut it if it's too long
+        $bar = substr($bar, 0, $width);
+      }
+      
+      $output .= $bar . &quot;\n&quot; . $esc{&quot;bg_black&quot;}
+                             . $esc{&quot;reset&quot;};
+      
+      # for each line with signs
+      for (my $j=0; $j&lt;$game_stat{&quot;level&quot;}+1; $j++) {
+        
+        # remove first letter
+        shift($lines[$j]);
+        
+        ($width) = GetTerminalSize();
+        # generate new letter(s - if someone change terminal size)
+        for (my $i=scalar(@{ $lines[$j] }); $i&lt;$width; $i++) {
+          my %sign = (
+            &quot;character&quot; =&gt; &quot; &quot;,
+            &quot;state&quot; =&gt; &quot;normal&quot;
+          );
+          if (int(rand(10)) &lt; 1) {
+            $sign{&quot;character&quot;} = $letters[int rand @letters];
+          }
+          push($lines[$j], \%sign);
+        }
+      
+        # iterate over every sign in the line
+        for (my $i=0; $i&lt;$width; $i++) {
+          
+          # check for missed signs
+          if ($i &lt; $hit_range{&quot;start&quot;} 
+              and ($lines[$j][$i]{&quot;state&quot;} eq &quot;normal&quot;) 
+              and ($lines[$j][$i]{&quot;character&quot;} ne &quot; &quot;) ) {
+            $game_stat{&quot;health&quot;}--;
+            $lines[$j][$i]{&quot;state&quot;} = &quot;missed&quot;;
+          }
+          
+          # set hit area colors
+          if ($i eq $hit_range{&quot;start&quot;}) {
+            # green background
+            $output .= $esc{&quot;bg_green&quot;};
+            # bold font
+            $output .= $esc{&quot;bold&quot;};
+          }
+          
+          # set standard area colors 
+          if ($i eq $hit_range{&quot;end&quot;}) {
+            # black background
+            $output .= $esc{&quot;bg_black&quot;};
+            # standard text
+            $output .= $esc{&quot;reset&quot;};
+          }
+          
+          # print color escape code
+          if ($sign_states{$lines[$j][$i]{&quot;state&quot;}}) {
+            $output .= $sign_states{$lines[$j][$i]{&quot;state&quot;}};
+          }
+          # print the letter
+          $output .= $lines[$j][$i]{&quot;character&quot;};
+
+        }
+        $output .= &quot;\n&quot;;
+      }
+      
+      # print the frame
+      print($output);
+      
+      # clear screen to the end (if minified terminal)
+      print($esc{&quot;clear_scr&quot;});
+      
+      # restore cursor position
+      # tput rc doesn't work whent cursor is in the last line :(
+      # I should find a way to get position of cursor
+      # print(`tput rc`);
+      # this solution will couse problems after terminal resizing
+      for (my $i=0; $i&lt;=$game_stat{&quot;level&quot;}+1; $i++) {
+        print($esc{&quot;line_up&quot;});
+      }
+      
+      # if he's good enought;)
+      if ($game_stat{&quot;score&quot;} 
+           &gt;= $NEXT_LEVEL_POINTS * ($game_stat{&quot;level&quot;} + 1)) {
+        $game_stat{&quot;level&quot;}++;
+        $_[KERNEL]-&gt;yield(&quot;next_level&quot;);
+      }
+      else {
+        # if he's dead
+        if ($game_stat{&quot;health&quot;} &lt; 1) {
+          $game_stat{&quot;lifes&quot;}--;
+          $_[KERNEL]-&gt;yield(&quot;next_life&quot;);
+        }
+        else {
+          # display next frame 
+          # period may be below 0, don't worry, it actually will be 0 :)
+          $_[KERNEL]-&gt;delay(
+            play =&gt; $FRAMERATE - Time::HiRes::tv_interval($timestamp)
+          );
+        }
+      }
+    },
+    
+  }
+);
+ 
+########################################################################
+
+POE::Kernel-&gt;run;
+        </pre>
       </section>
       
       <footer>
