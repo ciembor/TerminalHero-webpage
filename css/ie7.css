@@ -1,0 +1,28 @@
+aside#right, #slider {
+	position: relative;
+}
+
+#main-navigation > ul > li.last {
+	width: 159px;
+}
+
+#content {
+  position: relative;
+  z-index: 0;
+}
+
+#right #social li {
+  padding-bottom: 15px;
+}
+
+#content .article-inner figure {
+  display: none;
+}
+
+body.home {
+  background: #EAE2D7 url(../img/product_img.jpg) 484px 235px no-repeat; 
+}
+
+#content .article-content {
+	margin-bottom: 40px;
+}

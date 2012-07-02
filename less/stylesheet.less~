@@ -227,7 +227,7 @@ footer {
 #logo {
   font-family: "After Disaster";
   font-size: 74px;
-  line-height: 87px;
+  line-height: 87	px;
   font-weight: normal;
   display: inline-block;
   padding: 0 10px 0 10px;
@@ -236,7 +236,7 @@ footer {
 
 #movie {
   width:960px; 
-  height:396px;
+  height:540px;
   margin-bottom: @section_spacing;
   background-color: #000;
   iframe {
@@ -292,4 +292,5 @@ footer {
 .fb-like {
   width: 50px;
   height: 21px;
+  overflow-y: visible;
 }

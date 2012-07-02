@@ -5,14 +5,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Terminal Hero</title>
     
+    <!--[if lt IE 8]>
+      <link rel="stylesheet" media="all" href="css/ie7.css" />
+    <![endif]-->
+    
+    <!--[if IE 8]>
+      <link rel="stylesheet" media="all" href="css/ie8.css" />
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+    
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <link rel="stylesheet/less" type="text/css" href="./less/stylesheet.less" />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.3.0/less-1.3.0.min.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="./js/shCore.js"></script>
     <script type="text/javascript" src="./js/shBrushPerl.js"></script>
-    <link type="text/css" rel="stylesheet" href="./css/shCoreDefault.css"/>
-    <link type="text/css" rel="stylesheet" href="./css/shThemeRDark.css"/>
+    <link type="text/css" rel="stylesheet" href="./css/shCoreDefault.css" media="all"/>
+    <link type="text/css" rel="stylesheet" href="./css/shThemeRDark.css"  media="all"/>
 
     <script type="text/javascript" src="./js/vimeo_blink_fix.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
@@ -34,39 +46,46 @@
       </nav>
       
       <header class="main">
-        <a id="logo_link" href="#"><h1 id="logo"><span class="pink">T</span>erminal<span class="green">H</span>ero</h1></a>
+        <a id="logo_link" href="#"><h1 id="logo"><span class="pink T">T</span>erminal<span class="green">H</span>ero</h1></a>
         <a href="http://ciemborowicz.pl" rel="author">
           <img id="avatar" src="https://secure.gravatar.com/avatar/3478efd1de1ba3c35784d870b77fae89?s=80.png" alt="avatar" />
         </a>
         <div id="social-media">
-          <div id="fb" class="fb-like" data-send="false" data-layout="button_count" data-width="0" colorscheme="dark" data-show-faces="true"></div>
+          <div id="fb" class="fb-like" data-send="false" data-font="verdana" data-layout="button_count" data-width="0" data-colorscheme="dark" data-show-faces="true"></div>
           <a href="https://twitter.com/share" class="twitter-share-button" data-count="none"  data-via="ciembor">Tweet</a>
           <a href="https://twitter.com/ciembor" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow</a>
         </div>
       </header>
       
       <div id="movie">
-        <iframe src="http://player.vimeo.com/video/28773380?title=0&amp;byline=0&amp;portrait=0&amp;color=009bcf" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        <iframe src="http://player.vimeo.com/video/44892910?title=0&amp;byline=0&amp;portrait=0&amp;color=009bcf" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
       </div>
       
       <section id="readme">
         <h2>Readme</h2>
         
         <h3>Dependencies</h3>
-        <p>This game is written in Perl language, so it depends on <strong>Perl interpreter</strong>. It also needs some extra <strong>Perl modules</strong>:</p>
+        <p>This game is written in Perl language, so it depends on <strong>Perl interpreter</strong>. It also needs <strong>libtermkey</strong> and some extra <strong>Perl modules</strong>:</p>
         <ul>
-          <li><strong>POE</strong></li>
-          <li><strong>POE::Wheel::TermKey</strong></li>
           <li><strong>Term::ReadKey</strong></li>
           <li><strong>Term::TermKey</strong></li>
+          <li><strong>POE</strong></li>
+          <li><strong>POE::Wheel::TermKey</strong></li>
         </ul>
         <p>If you don't know how to install Perl modules, look at <a href="http://www.cpan.org/modules/INSTALL.html">How to install CPAN modules</a>. If you have problems with installation of <strong>Term::TermKey</strong>, make sure that <strong>libtermkey</strong> is available in your operating system. If not - <a href="http://stackoverflow.com/questions/8287071/installing-termtermkey-returns-error">Installing Term::TermKey returns error</a> should help you.</p>
         
+        <h2>Installation</h2>
+        To install Terminal Hero type in your shell:
+        <pre>perl Makefile.PL</pre>
+        <pre>make</pre>
+        <pre>make install</pre>
+        
         <h3>Usage</h3>
-        <pre>terminalhero.perl [options]
+        <pre>terminalhero [options]
 
 Options:
--h, --help         display this help
+-e, --easy           turn on easy mode
+-h, --help           display this help
 
 Shortcuts:
 Ctrl+D or Esc        exit
@@ -75,7 +94,7 @@ Rules:
 Press keys with letters which are in the green area.
 Your score will increase if you do it well and decrease 
 if you press wrong key. You can also lose health points 
-and lifes if the letters turns red. 
+and lives if the letters turns red. 
 
 Levels:
 You will reach new levels every 64 points.
@@ -84,6 +103,10 @@ Each level is a new line, so it is going harder.</pre>
       
       <section id="download">
         <h2>Download</h2>
+        <ul class="download_ul">
+          <li>tarball: <a href="https://github.com/ciembor/TerminalHero/tarball/master">https://github.com/ciembor/TerminalHero/tarball/master</a>,</li>
+          <li>ZIP package: <a href="https://github.com/ciembor/TerminalHero/zipball/master">https://github.com/ciembor/TerminalHero/zipball/master</a>.</li>
+        </ul>
       </section>
       
       <section id="code">
@@ -103,7 +126,7 @@ BEGIN {
   # help
   my $h = &quot;\nTerminal Hero\n&quot;
         . &quot;Linux society's response to Microsoft's Guitar Hero. :)\n\n&quot;
-        . &quot;Usage: terminalhero.perl [options]\n\n&quot;
+        . &quot;Usage: terminalhero [options]\n\n&quot;
         . &quot;Options:\n&quot;
         . &quot;-e, --easy\t\t turn on easy mode\n&quot;
         . &quot;-h, --help\t\t display this help\n\n&quot;
@@ -113,7 +136,7 @@ BEGIN {
         . &quot;Press keys with letters which are in the green area.\n&quot;
         . &quot;Your score will increase if you do it well and decrease \n&quot;
         . &quot;if you press wrong key. You can also lose health points \n&quot;
-        . &quot;and lifes if letters turns red. \n\n&quot;
+        . &quot;and lives if letters turns red. \n\n&quot;
         . &quot;Levels:\n&quot;
         . &quot;You will reach new levels every 64 points.\n&quot;
         . &quot;Each level is a new line, so it is going harder.\n\n&quot;
@@ -156,7 +179,8 @@ BEGIN {
   foreach (@modules) {
     eval &quot;use &quot; . $_ . &quot;;&quot;;
     die &quot;\nUnable to load &quot; . $_
-        . &quot; Perl module. Please, install it using cpan.\n\nError details:\n$@\n&quot; if $@;
+        . &quot; Perl module. Please, install it using cpan.\n\n&quot;
+        . &quot;Error details:\n$@\n&quot; if $@;
   } 
   
 }
@@ -197,14 +221,14 @@ my @letters = ('a'..'z');
 
 my $HEALTH = 32;
 my $NEXT_LEVEL_POINTS = 64;
-my $LIFES = 4;
+my $LIVES = 4;
 
 # we need a timestamp, the game should be smooth
 my $timestamp = 0;
 
 # state of the game
 my %game_stat = (
-  &quot;lifes&quot; =&gt; $LIFES,
+  &quot;lives&quot; =&gt; $LIVES,
   &quot;health&quot; =&gt; $HEALTH,
   &quot;level&quot; =&gt; 0,
   &quot;score&quot; =&gt; 0
@@ -286,7 +310,7 @@ POE::Session-&gt;create(
       delete $_[HEAP]{termkey} if $key-&gt;type_is_unicode and
                                    $key-&gt;utf8 eq &quot;C&quot; and
                                    $key-&gt;modifiers &amp; KEYMOD_CTRL;
-      },
+    },
     
     # game over, clear the screen and write a message ##################
     game_over =&gt; sub {
@@ -324,7 +348,7 @@ POE::Session-&gt;create(
     
     # let's start a new life, with new letters #########################
     next_life =&gt; sub {
-      if ($game_stat{&quot;lifes&quot;} &lt; 1) {
+      if ($game_stat{&quot;lives&quot;} &lt; 1) {
         $_[KERNEL]-&gt;yield(&quot;game_over&quot;);
       }
       else {
@@ -358,7 +382,7 @@ POE::Session-&gt;create(
       # prepare bar with the game's state
       my $bar = &quot;    whoami: &quot; . @levels[$game_stat{&quot;level&quot;}]
                 . &quot;    |    &quot;
-                . &quot;lifes: &quot; . $game_stat{&quot;lifes&quot;} 
+                . &quot;lives: &quot; . $game_stat{&quot;lives&quot;} 
                 . &quot;    |    &quot;
                 . &quot;health: &quot; . $game_stat{&quot;health&quot;} 
                 . &quot;    |    &quot;
@@ -459,7 +483,7 @@ POE::Session-&gt;create(
       else {
         # if he's dead
         if ($game_stat{&quot;health&quot;} &lt; 1) {
-          $game_stat{&quot;lifes&quot;}--;
+          $game_stat{&quot;lives&quot;}--;
           $_[KERNEL]-&gt;yield(&quot;next_life&quot;);
         }
         else {
