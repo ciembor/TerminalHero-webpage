@@ -18,8 +18,11 @@
     <![endif]-->
     
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="./css/stylesheet.css" media="all"/>
+    <!--
     <link rel="stylesheet/less" type="text/css" href="./less/stylesheet.less" />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.3.0/less-1.3.0.min.js" type="text/javascript"></script>
+    -->
 
     <script type="text/javascript" src="./js/shCore.js"></script>
     <script type="text/javascript" src="./js/shBrushPerl.js"></script>
@@ -79,7 +82,10 @@
         <pre>perl Makefile.PL
 make
 make install</pre>
-        
+        <p>In <strong>ArchLinux</strong> you can use existing <a href="https://aur.archlinux.org/packages/terminalhero-git/">PKGBUILD</a> for this game from AUR:</p>
+        <pre>yaourt -S terminalhero-git</pre>
+        <p>The binary will be installed in: <pre>/usr/bin/vendor_perl</pre></p>
+
         <h3>Usage</h3>
         <pre>terminalhero [options]
 
